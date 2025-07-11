@@ -23,19 +23,11 @@ async function signup(req, res, next){
                      error: "Failed to add the employee!"
                 })
             } else {
-                const token = jwt.sign(
-                    {id: new_User._id},
-                'JWT_SECRET', {expiresIn: '1d'}
-            );
-            
-            const sendBack = {
-                user_token: token,
-            };
+                
              
                 res.status(200).json({
                   status: "true",
                   message: "Employee added successfully!",
-                  data: sendBack,
                 });
             }
 

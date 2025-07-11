@@ -1,3 +1,4 @@
+//services.signup.services
 const User = require('../models/User')
 const bcrypt = require('bcrypt');
 
@@ -6,20 +7,22 @@ async function checkIfUserExists(email) {
     try {
         const user = await User.findOne({ email });
         return !!user;
-    } catch (err) {
-        console.error('Error checking if user exists:', err);
-        throw err;
+    } catch (error) {
+        console.error('Error checking if user exists:', error);
+        throw error;
     }
 }
 
 async function signup(user) {
-    
+    console.log("user", user);
     try {
+        name = user.name,
+        email = user.email
     const salt = await bcrypt.genSalt(10);
-    const passwordHash = await bcrypt.hash(password, salt);
+    const passwordHash = await bcrypt.hash(user.password, salt);
 
     const newUser = new User({
-        name, 
+       name, 
         email,
         passwordHash,
         credits: 10.
@@ -30,7 +33,7 @@ async function signup(user) {
     return newUser
 }
 catch(error) {
-    console.log(err)
+    console.log(error)
 }
 }
 
