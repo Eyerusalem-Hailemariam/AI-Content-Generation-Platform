@@ -20,13 +20,14 @@ async function login(req, res, next) {
             user_id: user.data._id,
             user_email: user.data.email,
         }
-        console.log("payload", payload)
+       
         const token = jwt.sign(
             {id: user.data._id},
             jwtSecret, 
             {expiresIn: '1d'}
         );
-        console.log("token", token);
+        
+        
         const sendBack = {
             user_token: token,
         };
