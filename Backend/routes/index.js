@@ -3,8 +3,12 @@ const express = require('express');
 
 const router = express.Router();
 
-const userRouter = require('./signup.routes');
+const signupRouter = require('./signup.routes');
 
-router.use(userRouter);
+const loginRouter = require('./login.routes');
+
+router.use(signupRouter);
+
+router.use(loginRouter);
 
 module.exports = router;

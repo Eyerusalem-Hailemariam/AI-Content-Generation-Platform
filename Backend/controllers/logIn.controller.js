@@ -1,5 +1,5 @@
-const loginServices = require("../services/login.services");
-
+const loginServices = require("../services/login.services")
+const jwtSecret = process.env.JWT_SECRET
 const jwt = require("jsonwebtoken");
 
 async function login(req, res, next) {
@@ -7,38 +7,46 @@ async function login(req, res, next) {
         console.log("req", req.body);
 
         const user = await loginServices.login(req.body);
+        console.log("logcontr", user)
 
-        if (user_status == "fail") {
-            res.status(403).json({
+        if (user.status == "fail") {
+            return res.status(403).json({
                 status: user.status,
                 message: user.message,
-              });
-              console.log(user.message); 
+            });
         }
 
         const payload = {
-            user_id : user.data.user_id,
-            user_email: user.data.user_email,
+            user_id: user.data._id,
+            user_email: user.data.email,
         }
+        console.log("payload", payload)
         const token = jwt.sign(
-            {id: user._id},
-        'JWT_SECRET', {expiresIn: '1d'}
-    );
-    
-    const sendBack = {
-        user_token: token,
-    };
-     
-        res.status(200).json({
-          status: "true",
-          message: "Employee login successfully!",
-          data: sendBack,
+            {id: user.data._id},
+            jwtSecret, 
+            {expiresIn: '1d'}
+        );
+        console.log("token", token);
+        const sendBack = {
+            user_token: token,
+        };
+         
+        console.log("sendBack", sendBack)
+        return res.status(200).json({
+            status: "success",
+            message: "Employee login successfully!",
+            data: sendBack,
         });
     
     } catch(error) {
-
+        console.error('Login error:', error);
+        return res.status(500).json({
+            status: "fail",
+            message: "Internal server error"
+        });
     }
 }
+
 module.exports = {
     login
 }

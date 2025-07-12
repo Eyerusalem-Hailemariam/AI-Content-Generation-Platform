@@ -5,16 +5,21 @@ async function login(userData) {
     try {
         let returnData = {}
 
+        const {email, password} = userData;
+
         const user = await User.findOne({email});
 
-        if (user.length == 0){
+        if (!user){
             returnData = {
                 status: "fail",
                 message : "Employee doesn't exist"
             }
             return returnData
         }
-        const passwordMatch = await bcrypt.compare(userData.password, user[0].passwordHash)
+
+        console.log("loginuser", user)
+        const passwordMatch = await bcrypt.compare(password, user.passwordHash)
+        console.log("passwordMatch", passwordMatch)
         if(!passwordMatch) {
             returnData = {
                 status: "fail",
@@ -26,8 +31,9 @@ async function login(userData) {
 
         returnData = {
             status: "success",
-            data: user[0]
+            data: user
         };
+        console.log(returnData)
         return returnData
     } catch (error) {
 
