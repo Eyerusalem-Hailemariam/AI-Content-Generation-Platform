@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import generateService from '../../services/blogService'
+import getAuth from '../../Utility/auth';
 
 function BlogPostGenerator() {
 
@@ -7,6 +8,10 @@ function BlogPostGenerator() {
     const [prompt, setPrompt] = useState('');
     const [generateBlog, setGeneratedBlog] = useState('');
     const [loading, setLoading] = useState(false);
+
+    const user = getAuth();
+    const token = user.user_token;
+    // console.log('id:', user.user_id, 'email:', user.user_email, 'token', token);
 
     const handleGenerate = async () => {
 
@@ -16,7 +21,8 @@ function BlogPostGenerator() {
         setGeneratedBlog('');
 
         try {
-            const blog = await generateService.generateBlog(prompt);
+            console.log(prompt, token)
+            const blog = await generateService.generateBlog(prompt, token);
             setGeneratedBlog(blog);
         } catch(error) {
             alert('Failed to generate blog post');
