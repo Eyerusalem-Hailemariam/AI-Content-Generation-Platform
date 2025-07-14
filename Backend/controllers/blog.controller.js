@@ -27,10 +27,16 @@ async function generateBlog(req, res) {
         const generatedBlog = await generateBlogPost(prompt);
         console.log('generatedBlog result:', generatedBlog);
 
+        let title = 'Untitled';
+        const match = generatedBlog.match(/^#+\s*(.*)/m);
+        if (match && match[1]) {
+            title = match[1].trim();
+        }
+
         user.credits -= 1;
 
         const newPost = new BlogPost({
-            title: 'Untitled', // or extract a title if you want
+            title: title, // or extract a title if you want
             prompt: prompt,
             generatedBlog: generatedBlog, // use the string directly
             user_id: user_id,
