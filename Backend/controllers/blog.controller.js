@@ -1,13 +1,35 @@
 const {generateBlogPost} = require('../services/gemini.services');
+const User = require('../models/User') 
 
 async function generateBlog(req, res) {
-    const { prompt } = req.body;
-
-    console.log("prompt", prompt)
+    
+    const { prompt, user_id } = req.body;
+    console.log('Prompt:', prompt);
+    console.log('User ID:', user_id);
 
     try {
-        const generateBlog = await generateBlogPost(prompt);
-        res.json({blog: generateBlog});
+
+        const user = await User.findById(user_id);
+
+        if(!user) {
+            return res.status(404).json({error : 'User not found'});
+        }
+
+        if (user.credits < 1) {
+            return res.status(400).json({error : 'Insufficient credits'});
+        }
+
+        const generatedBlog = await generateBlogPost(prompt);
+
+        user.credits -= 1;
+        await user.save();
+
+        res.json({
+            blog: generatedBlog,
+            creditsRemaining : user.credits
+        });
+
+        
     } catch (error) {
         console.error('Blog generation error:', error);
         
@@ -19,7 +41,7 @@ async function generateBlog(req, res) {
             });
         }
         
-        // Handle quota or rate limit errors
+        
         if (error.response && error.response.status === 429) {
             return res.status(429).json({
                 error: 'Gemini API quota exceeded. Please try again later.',
@@ -27,7 +49,7 @@ async function generateBlog(req, res) {
             });
         }
         
-        // Handle other API errors
+       
         if (error.response && error.response.data) {
             return res.status(400).json({
                 error: 'Gemini API error',

@@ -4,10 +4,10 @@ const jwt = require("jsonwebtoken");
 
 async function login(req, res, next) {
     try {
-        console.log("req", req.body);
+        // console.log("req", req.body);
 
         const user = await loginServices.login(req.body);
-        console.log("logcontr", user)
+        // console.log("logcontr", user)
 
         if (user.status == "fail") {
             return res.status(403).json({
@@ -22,17 +22,17 @@ async function login(req, res, next) {
         }
        
         const token = jwt.sign(
-            {id: user.data._id},
+            payload,
             jwtSecret, 
             {expiresIn: '1d'}
         );
-        
+       
         
         const sendBack = {
             user_token: token,
         };
          
-        console.log("sendBack", sendBack)
+        // console.log("sendBack", sendBack)
         return res.status(200).json({
             status: "success",
             message: "Employee login successfully!",
