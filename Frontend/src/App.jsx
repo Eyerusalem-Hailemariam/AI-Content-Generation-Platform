@@ -4,6 +4,7 @@ import BlogPostGeneratorPage from "./pages/BlogPostGeneratorPage";
 import SignupPage from "./pages/SignupPage";
 import './index.css';
 import LoginPage from "./pages/LoginPage";
+import ImageGeneratorPage from "./pages/ImageGeneratorPage";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/blog-post" element={<BlogPostGeneratorPage/>} />
         <Route path="/login" element={<LoginPage/>}/>
+        <Route path="/image-gen" element={<ImageGeneratorPage/>}/>
       </Routes>
     </Router>
   );

@@ -38,7 +38,6 @@ function Login() {
         console.log("formData", formData);
           const response = await loginService.login(formData);
 
-          // console.log("response_token", response.data.data.user_token);
     
           if (response.data.status === 'success') {
             if (response.data.data && response.data.data.user_token) {
