@@ -14,7 +14,6 @@ async function checkIfUserExists(email) {
 }
 
 async function signup(user) {
-    // console.log("user", user);
     try {
         name = user.name,
         email = user.email

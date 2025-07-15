@@ -3,7 +3,7 @@ const axios = require('axios');
 async function generateBlogPost(prompt) {
     try {
         const apiKey = process.env.GEMINI_API_KEY;
-        const model = 'gemini-1.5-flash'; // or 'gemini-1.5-pro'
+        const model = 'gemini-1.5-flash';
         
         if (!apiKey) {
             throw new Error('GEMINI_API_KEY environment variable is not set');

@@ -17,9 +17,10 @@ async function login(userData) {
             return returnData
         }
 
-        // console.log("loginuser", user)
+       
         const passwordMatch = await bcrypt.compare(password, user.passwordHash)
-        // console.log("passwordMatch", passwordMatch)
+      
+
         if(!passwordMatch) {
             returnData = {
                 status: "fail",

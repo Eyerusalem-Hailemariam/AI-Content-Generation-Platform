@@ -3,12 +3,11 @@ const User = require('../models/User');
 const BlogPost = require('../models/BlogPost');
 
 async function generateBlog(req, res) {
-    // Destructure prompt and user_id from the request body
+    
     const { prompt, user_id } = req.body;
     console.log('Prompt:', prompt);
     console.log('User ID:', user_id);
 
-    // Validate required fields
     if (!prompt || !user_id) {
         return res.status(400).json({ error: 'Prompt and user_id are required.' });
     }
@@ -36,9 +35,9 @@ async function generateBlog(req, res) {
         user.credits -= 1;
 
         const newPost = new BlogPost({
-            title: title, // or extract a title if you want
+            title: title, 
             prompt: prompt,
-            generatedBlog: generatedBlog, // use the string directly
+            generatedBlog: generatedBlog,
             user_id: user_id,
         });
 
