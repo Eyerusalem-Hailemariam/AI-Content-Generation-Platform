@@ -25,7 +25,7 @@ function BlogPostGenerator() {
         }
     };
 
-    return (
+  return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-200 py-8 px-2">
             <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-xl">
                 <h2 className="text-3xl font-bold text-center text-primary-700 mb-6">Blog Post Generator</h2>
@@ -52,15 +52,15 @@ function BlogPostGenerator() {
                     ) : (
                         'Generate Blog Post'
                     )}
-                </button>
-                {generateBlog && (
+        </button>
+    {generateBlog && (
                     <div className="mt-6 bg-primary-50 border border-primary-200 rounded-lg p-6 shadow-inner">
                         <h3 className="text-xl font-semibold text-primary-700 mb-2">Generated Blog Post:</h3>
                         <div className="prose prose-blue max-w-none text-gray-900 whitespace-pre-line">
                             {generateBlog}
                         </div>
                     </div>
-                )}
+    )}
             </div>
         </div>
     );

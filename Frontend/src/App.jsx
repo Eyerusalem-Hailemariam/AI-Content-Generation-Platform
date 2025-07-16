@@ -8,6 +8,7 @@ import ImageGeneratorPage from "./pages/ImageGeneratorPage";
 import PaymentPage from './pages/PaymentPage';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+import LandingPage from "./pages/LandingPage";
 
 
 const stripePromise = loadStripe('pk_test_51RlS4dQeiUbH3HnfwXPGZvjSbaT9GTB9XF1oxk0EbXsO5QjS9dhhs4XDmdr68kIe7YnFowj47NDt7aD5X9Qf0tmv00xkftHo12');
@@ -21,6 +22,7 @@ function App() {
         <Route path="/blog-post" element={<BlogPostGeneratorPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/image-gen" element={<ImageGeneratorPage />} />
+        <Route path="/dashboard" element={<LandingPage/>}/>
         <Route path="/payment" element={
           <Elements stripe={stripePromise}>
             <PaymentPage />
