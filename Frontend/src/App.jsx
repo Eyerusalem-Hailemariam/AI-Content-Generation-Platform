@@ -17,12 +17,12 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<SignupPage />} />
+        
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/blog-post" element={<BlogPostGeneratorPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/image-gen" element={<ImageGeneratorPage />} />
-        <Route path="/dashboard" element={<LandingPage/>}/>
+        <Route path="/" element={<LandingPage/>}/>
         <Route path="/payment" element={
           <Elements stripe={stripePromise}>
             <PaymentPage />

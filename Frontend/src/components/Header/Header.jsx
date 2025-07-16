@@ -1,76 +1,76 @@
-import React, { useState } from 'react';
-import { Button, Input, Box, Heading, Text, Flex, Spacer } from '@chakra-ui/react';
+import React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Link from '@mui/material/Link';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
-    const [search, setSearch] = useState('');
-
-    const handleSearch = () => {
-        console.log('Searching for:', search);
-        // Implement your search or filter logic here
-    };
-
-    const handleLogin = () => {
-        console.log('Navigate to login page');
-        // Implement navigation logic, e.g. React Router navigate('/login')
-    };
-
+    const navigate = useNavigate();
     const handleSignup = () => {
-        console.log('Navigate to signup page');
-        // Implement navigation logic, e.g. React Router navigate('/signup')
+        navigate('/signup');
+    };
+    const handleHome = (e) => {
+        e.preventDefault();
+        navigate('/');
     };
 
     return (
-        <Box
-            bg="blue.600"
-            color="white"
-            py={6}
-            px={4}
-            boxShadow="md"
+        <AppBar
+            position="static"
+            elevation={0}
+            sx={{
+                background: 'transparent',
+                color: 'black',
+                px: { xs: 2, md: 6 },
+                py: 1,
+            }}
         >
-            <Flex
-                direction={{ base: 'column', md: 'row' }}
-                align={{ base: 'center', md: 'center' }}
-                justify="space-between"
-                mb={4}
+            <Toolbar
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    flexWrap: 'wrap',
+                }}
             >
-                <Box textAlign={{ base: 'center', md: 'left' }}>
-                    <Heading as="h1" size="lg" mb={{ base: 2, md: 0 }}>
+                <Link
+                    href="/"
+                    underline="none"
+                    color="inherit"
+                    onClick={handleHome}
+                    sx={{ cursor: 'pointer' }}
+                >
+                    <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
                         My Application
-                    </Heading>
-                    <Text fontSize="md">
-                        Welcome to your dashboard
-                    </Text>
-                </Box>
-
-                <Flex gap={2} mt={{ base: 4, md: 0 }}>
-                    <Button colorScheme="teal" variant="outline" onClick={handleLogin}>
-                        Login
-                    </Button>
-                    <Button colorScheme="teal" onClick={handleSignup}>
+                    </Typography>
+                </Link>
+                <Box sx={{ display: 'flex', gap: 2, mt: { xs: 1, md: 0 } }}>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleSignup}
+                        sx={{
+                            textTransform: 'none',
+                            fontWeight: 'bold',
+                            borderRadius: 3,
+                            px: 3,
+                            py: 1,
+                            background: 'linear-gradient(90deg, #2196f3 0%, #21cbf3 100%)',
+                            boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+                            '&:hover': {
+                                transform: 'scale(1.05)',
+                                transition: 'transform 0.2s ease-in-out',
+                            },
+                        }}
+                    >
                         Signup
                     </Button>
-                </Flex>
-            </Flex>
-
-            <Flex
-                justify="center"
-                align="center"
-                gap={2}
-                maxW="md"
-                mx="auto"
-            >
-                <Input
-                    placeholder="Search..."
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    bg="white"
-                    color="black"
-                />
-                <Button colorScheme="teal" onClick={handleSearch}>
-                    Search
-                </Button>
-            </Flex>
-        </Box>
+                </Box>
+            </Toolbar>
+        </AppBar>
     );
 }
 
