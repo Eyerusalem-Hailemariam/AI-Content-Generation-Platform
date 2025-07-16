@@ -1,11 +1,16 @@
 import React, {useState} from 'react';
 import imageService from '../../services/imageServices';
+import getAuth from '../../Utility/auth';
 
 function ImageGenerator() {
 
     const [prompt, setPrompt] = useState('')
     const [image, setImage] = useState('');
     const [loading, setLoading] = useState(false);
+
+    const user = getAuth();
+    const token = user.user_token;
+    const id = user.user_id;
 
 
     const handleGenerator = async () => {
@@ -14,7 +19,7 @@ function ImageGenerator() {
         console.log("prompt", prompt)
 
         try {
-            const response = await imageService.imageGenerator(prompt);
+            const response = await imageService.imageGenerator(prompt, token, id);
             setImage(response.data.image);
 
         } catch(error) {
