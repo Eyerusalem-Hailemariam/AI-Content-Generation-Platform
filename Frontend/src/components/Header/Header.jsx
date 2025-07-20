@@ -13,6 +13,13 @@ function Header() {
         navigate('/signup');
     };
 
+    const handleScroll = (id) => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     return (
         <AppBar
             position="static"
@@ -40,10 +47,10 @@ function Header() {
 
                 {/* Navigation Links */}
                 <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 3 }}>
-                    <Button color="inherit" sx={{ fontSize: 17, fontWeight: 'bold', textTransform: 'none' }} onClick={() => navigate('/dashboard')}>Home</Button>
-                    <Button color="inherit" sx={{ fontSize: 17, fontWeight: 'bold', textTransform: 'none' }} onClick={() => navigate('/courses')}>Features</Button>
-                    <Button color="inherit" sx={{ fontSize: 17, fontWeight: 'bold', textTransform: 'none' }} onClick={() => navigate('/my-learning')}>How it works</Button>
-                    <Button color="inherit" sx={{ fontSize: 17, fontWeight: 'bold', textTransform: 'none' }} onClick={() => navigate('/categories')}>Testimonial</Button>
+                    <Button color="inherit" sx={{ fontSize: 17, fontWeight: 'bold', textTransform: 'none' }} onClick={() => navigate('/')}>Home</Button>
+                    <Button color="inherit" sx={{ fontSize: 17, fontWeight: 'bold', textTransform: 'none' }} onClick={() => handleScroll('features')}>Features</Button>
+                    <Button color="inherit" sx={{ fontSize: 17, fontWeight: 'bold', textTransform: 'none' }} onClick={() => handleScroll('companies')}>Partner</Button>
+                    <Button color="inherit" sx={{ fontSize: 17, fontWeight: 'bold', textTransform: 'none' }} onClick={() => handleScroll('testimonial')}>Testimonial</Button>
                 </Box>
 
                 {/* Signup Button */}

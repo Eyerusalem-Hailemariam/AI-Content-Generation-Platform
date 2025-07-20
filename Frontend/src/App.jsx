@@ -29,7 +29,6 @@ function App() {
             <PaymentPage />
           </Elements>
         } />
-        {/* Optional: 404 fallback */}
         {/* <Route path="*" element={<div>404 Not Found</div>} /> */}
       </Routes>
     </Router>

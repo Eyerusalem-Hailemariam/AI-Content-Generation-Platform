@@ -49,7 +49,7 @@ const HeroSection = () => {
               color="primary"
               size="large"
               sx={{ borderRadius: 3, px: 5, fontWeight: 'bold', boxShadow: 2 }}
-              onClick={() => navigate('/generate')}
+              onClick={() => navigate('/blog-post')}
             >
               Start Generating
             </Button>
