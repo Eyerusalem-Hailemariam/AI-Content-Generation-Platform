@@ -6,6 +6,7 @@ import HeroSection from '../components/Landing/HeroSection';
 import Header from '../components/Header/Header';
 import TrustedCompanies from '../components/Landing/TrustedCompanies';
 import ScrollToTopButton from '../components/ui/ScrollToTopButton';
+import Pricing from '../components/Landing/Pricing';
 
 
 const LandingPage = () => {
@@ -22,6 +23,7 @@ const LandingPage = () => {
       <HeroSection/>
       <div id="companies"><TrustedCompanies /></div>
       <div id="features"><Features /></div>
+      <div id="price"><Pricing/></div>
       <div id="testimonial"><Testimonial /></div>
       <Footer />
       <ScrollToTopButton />

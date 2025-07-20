@@ -51,6 +51,7 @@ function Header() {
                     <Button color="inherit" sx={{ fontSize: 17, fontWeight: 'bold', textTransform: 'none' }} onClick={() => handleScroll('features')}>Features</Button>
                     <Button color="inherit" sx={{ fontSize: 17, fontWeight: 'bold', textTransform: 'none' }} onClick={() => handleScroll('companies')}>Partner</Button>
                     <Button color="inherit" sx={{ fontSize: 17, fontWeight: 'bold', textTransform: 'none' }} onClick={() => handleScroll('testimonial')}>Testimonial</Button>
+                    <Button color="inherit" sx={{ fontSize: 17, fontWeight: 'bold', textTransform: 'none' }} onClick={() => handleScroll('price')}>Pricing</Button>
                 </Box>
 
                 {/* Signup Button */}

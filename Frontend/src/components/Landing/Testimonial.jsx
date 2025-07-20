@@ -50,7 +50,7 @@ export default function Testimonial() {
   return (
     <Box sx={{ py: 8, background: '#fff', overflow: 'hidden' }}>
       <Typography variant="h4" align="center" fontWeight="bold" mb={6}>
-        What Our Learners Say
+        What Our  Client Say
       </Typography>
       <Box
         sx={{
@@ -76,30 +76,30 @@ export default function Testimonial() {
             <Box key={idx} sx={{ position: 'relative', minWidth: CARD_WIDTH, maxWidth: CARD_WIDTH, flex: '0 0 auto' }}>
               {/* Avatar Overlapping */}
               <Avatar
-                src={t.avatar}
-                alt={t.name}
-                sx={{
-                  width: 64,
-                  height: 64,
-                  position: 'absolute',
-                  left: '50%',
-                  top: -32,
-                  transform: 'translateX(-50%)',
-                  boxShadow: 3,
-                  border: '4px solid #fff',
-                  zIndex: 2,
-                  background: '#fff',
-                }}
-              />
+  src={t.avatar}
+  alt={t.name}
+  sx={{
+    width: 64,
+    height: 64,
+    position: 'absolute',
+    left: '50%',
+    top: 0,
+    transform: 'translate(-50%, -50%)', 
+    boxShadow: 3,
+    border: '4px solid #fff',
+    zIndex: 2,
+    background: '#fff',
+  }}
+/>
               <Paper
                 elevation={3}
                 sx={{
                   mt: 4,
-                  pt: 6,
+                  pt: 12,
                   pb: 3,
                   px: 3,
                   borderRadius: 4,
-                  minHeight: 220,
+                  minHeight: 240,
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
