@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import BlogPostGeneratorPage from "./pages/BlogPostGeneratorPage";
+// import BlogPostGeneratorPage from "./pages/BlogPostGeneratorPage";
+import BlogAndImageGeneratorPage from "./pages/BlogAndImageGeneratorPage";
 import SignupPage from "./pages/SignupPage";
 import './index.css';
 import LoginPage from "./pages/LoginPage";
@@ -19,7 +20,7 @@ function App() {
       <Routes>
         
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/blog-post" element={<BlogPostGeneratorPage />} />
+        <Route path="/blog-post" element={<BlogAndImageGeneratorPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/image-gen" element={<ImageGeneratorPage />} />
         <Route path="/" element={<LandingPage/>}/>

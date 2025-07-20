@@ -1,12 +1,21 @@
 import React from 'react';
+import Features from "../components/Landing/Features";
+import Testimonial from '../components/Landing/Testimonial';
+import Footer from '../components/Landing/Footer';
+import HeroSection from '../components/Landing/HeroSection';
 import Header from '../components/Header/Header';
-import Features from '../components/Landing/Features';
+import TrustedCompanies from '../components/Landing/TrustedCompanies';
 
-const  LandingPage = () => {
+
+const LandingPage = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div>
       <Header/>
-      <Features/>
+      <HeroSection/>
+      <TrustedCompanies/>
+      <Features />
+      <Testimonial />
+      <Footer />
     </div>
   );
 };
