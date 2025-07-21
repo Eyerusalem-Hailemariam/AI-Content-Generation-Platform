@@ -28,8 +28,32 @@ async function generateBlog(prompt, token, user_id) {
     }
 }
 
+
+async function getBlog(id, token) {
+
+    console.log("id this", id)
+
+    try {
+        const response = await axios.get(
+            `${API_BASE_URL}/get-blog/${id}`,
+            {
+                headers : {
+                    'Content-Type' : 'application/json',
+                    Authorization : `Bearer ${token}`
+                }
+            }
+        );
+
+        console.log("response", response);
+        return response;
+    } catch(error) {
+
+    }
+}
+
 const generateService = {
-   generateBlog
+   generateBlog,
+   getBlog
 };
 export default generateService; 
 

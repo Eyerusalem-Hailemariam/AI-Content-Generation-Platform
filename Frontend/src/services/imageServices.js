@@ -1,4 +1,5 @@
 import axios from'axios'
+const API_BASE_URL = 'http://localhost:5000/api';
 
 async function imageGenerator(prompt, token, user_id) {
 
@@ -26,9 +27,31 @@ async function imageGenerator(prompt, token, user_id) {
         console.log(error)
     }
 }
+async function getImages(id, token) {
 
+    console.log("id this image", id)
+
+    try { 
+        console.log("response image", id)
+        const response = await axios.get(
+            `${API_BASE_URL}/get-image/${id}`,
+            {
+                headers : {
+                    'Content-Type' : 'application/json',
+                    Authorization : `Bearer ${token}`
+                }
+            }
+        );
+
+        console.log("response", response);
+        return response;
+    } catch(error) {
+
+    }
+}
 
 const imageService = {
-    imageGenerator
+    imageGenerator,
+    getImages
  };
  export default imageService; 

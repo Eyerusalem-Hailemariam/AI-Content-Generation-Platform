@@ -17,8 +17,13 @@ async function login(userData) {
     }
 }
 
+const logOut = () => {
+    localStorage.removeItem("employee");
+};
+
 const loginService = {
-    login
+    login,
+    logOut
 }
 
 export default loginService;

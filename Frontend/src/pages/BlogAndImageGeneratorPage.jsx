@@ -3,12 +3,13 @@ import { Box, Container } from '@mui/material';
 import BlogPostGenerator from '../components/BlogPostGenerator/BlogPostGenerator';
 import ImageGenerator from '../components/ImageGenerator/ImageGenerator';
 import Header from '../components/Header/Header';
+import Footer from '../components/Landing/Footer'; 
 
 export default function BlogAndImageGeneratorPage() {
   return (
-    <Box sx={{ minHeight: '100vh', background: 'linear-gradient(135deg, #e3f0ff 0%, #f9f9f9 100%)', py: 6 }}>
+    <Box >
       <Header />
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" sx={{ background: 'linear-gradient(135deg, #e8f5e9 0%, #e0f7fa 100%)', pt: 8 }}>
         <Box
           sx={{
             display: 'flex',
@@ -45,6 +46,7 @@ export default function BlogAndImageGeneratorPage() {
           </Box>
         </Box>
       </Container>
+      <Footer/>
     </Box>
   );
 } 

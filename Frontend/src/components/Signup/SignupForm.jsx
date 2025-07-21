@@ -13,6 +13,7 @@ import {
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
+import { useNavigate } from 'react-router-dom';
 
 const SignupForm = () => {
   const [formData, setFormData] = useState({
@@ -23,6 +24,7 @@ const SignupForm = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -45,13 +47,16 @@ const SignupForm = () => {
     }
 
     const response = await signupServices.signup(formData);
-    if (response.data.status === 'success') {
+    if (response.data.status === 'true' || response.data.status === true) {
       setSuccess('Account created successfully! Please log in.');
       setFormData({ name: '', email: '', password: '' });
+      setError('');
+      setTimeout(() => navigate('/login'), 1000);
     } else {
       setError(response.data.message || 'Signup failed');
+      setSuccess('');
     }
-    setLoading(false);
+    
   };
 
   return (

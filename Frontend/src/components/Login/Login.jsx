@@ -52,7 +52,7 @@ function Login() {
       }
       setSuccess('Logged in successfully');
       setFormData({ email: '', password: '' });
-      setTimeout(() => navigate('/blog-post'), 1000);
+      setTimeout(() => navigate('/dashboard'), 1000);
     } else {
       setError(response.data.message || 'Login failed');
     }

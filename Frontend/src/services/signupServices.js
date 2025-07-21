@@ -10,7 +10,7 @@ async function signup(userData) {
             email: userData.email,
             password: userData.password
         });
-
+        console.log("response", response)
         return response
     } catch {
 

@@ -2,10 +2,12 @@ import React from 'react';
 import { Box, Typography, Button, CardMedia, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import featureImage from '../../assets/images/image.png';
+import { useAuth } from '../../Context/AuthProvider';
 
 
 const HeroSection = () => {
   const navigate = useNavigate();
+  const { isLogged, setIsLogged, user } = useAuth();
 
   return (
     <Box
@@ -43,17 +45,32 @@ const HeroSection = () => {
           <Typography variant="h6" color="text.secondary" mb={4}>
             Use our AI platform to create blogs, articles, and social posts in seconds.
           </Typography>
-          <Box sx={{ display: 'flex', justifyContent: { xs: 'center', md: 'flex-start' } }}>
-            <Button
-              variant="contained"
-              color="primary"
-              size="large"
-              sx={{ borderRadius: 3, px: 5, fontWeight: 'bold', boxShadow: 2 }}
-              onClick={() => navigate('/signup')}
-            >
-              Try free trail 
-            </Button>
-          </Box>
+          {isLogged ? (
+            <Box sx={{ display: 'flex', justifyContent: { xs: 'center', md: 'flex-start' } }}>
+              <Button
+                variant="contained"
+                color="primary"
+                size="large"
+                sx={{ borderRadius: 3, px: 5, fontWeight: 'bold', boxShadow: 2 }}
+                onClick={() => navigate('/dashboard')} 
+              >
+                Start Generating
+              </Button>
+            </Box>
+          ) : (
+            <Box sx={{ display: 'flex', justifyContent: { xs: 'center', md: 'flex-start' } }}>
+              <Button
+                variant="contained"
+                color="primary"
+                size="large"
+                sx={{ borderRadius: 3, px: 5, fontWeight: 'bold', boxShadow: 2 }}
+                onClick={() => navigate('/signup')}
+              >
+                Try Free Trial
+              </Button>
+            </Box>
+          )}
+          
         </Grid>
 
         <Grid

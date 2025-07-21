@@ -5,13 +5,24 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import Logo from './Logo/Logo';
+import { useAuth } from '../../Context/AuthProvider';
+import loginService from '../../services/loginServices';
+import { Link } from 'react-router-dom';
 
 function Header() {
     const navigate = useNavigate();
+    const { isLogged, setIsLogged, user } = useAuth();
+    
+    console.log("isLogged", isLogged);
 
     const handleSignup = () => {
         navigate('/signup');
     };
+
+    const logOut = () => {
+        loginService.logOut();
+        setIsLogged(false);
+    }
 
     const handleScroll = (id) => {
         const el = document.getElementById(id);
@@ -55,21 +66,30 @@ function Header() {
                 </Box>
 
                 {/* Signup Button */}
-                <Button
-                    variant="contained"
-                    onClick={handleSignup}
-                    sx={{
-                        borderRadius: '20px',
-                        textTransform: 'none',
-                        fontWeight: 'bold',
-                        backgroundColor: '#1976d2',
-                        '&:hover': {
-                            backgroundColor: '#115293',
-                        },
-                    }}
-                >
-                    Sign Up
-                </Button>
+                {
+                    isLogged ? (
+                        <Button onClick={logOut}>
+                            Log Out
+                        </Button>
+                    ) : (
+                        <Button
+                        variant="contained"
+                        onClick={handleSignup}
+                        sx={{
+                            borderRadius: '20px',
+                            textTransform: 'none',
+                            fontWeight: 'bold',
+                            backgroundColor: '#1976d2',
+                            '&:hover': {
+                                backgroundColor: '#115293',
+                            },
+                        }}
+                    >
+                        Sign Up
+                    </Button>         
+                    )
+                }
+               
             </Toolbar>
         </AppBar>
     );

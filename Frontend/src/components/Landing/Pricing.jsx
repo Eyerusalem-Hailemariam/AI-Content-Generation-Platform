@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Container, Typography, Paper, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../Context/AuthProvider';
 
 const plans = [
   {
@@ -27,18 +28,30 @@ const plans = [
 ];
 
 function PricingSection() {
-  return (
+
+  const { isLogged, setIsLogged, user } = useAuth();
+    
+        return (
     <Box id="pricing" sx={{ py: 8,  background: 'linear-gradient(135deg,rgb(214, 247, 217) 0%, #e0f7fa 100%)' }}>
       <Container maxWidth="md">
         <Box display="flex" justifyContent="space-between" alignItems="center" mb={6} flexWrap="wrap">
           <Typography variant="h4" fontWeight="bold" mb={{ xs: 3, sm: 0 }}>
             Pricing Plans
           </Typography>
-          <Link to="/signup" style={{ textDecoration: 'none' }}>
+          {isLogged ? (
+ <Link to="/payment" style={{ textDecoration: 'none' }}>
+ <Typography variant="button" color="primary" sx={{ fontWeight: 'bold' }}>
+   Get Started &gt;
+ </Typography>
+</Link>
+          ) : (
+            <Link to="/signup" style={{ textDecoration: 'none' }}>
             <Typography variant="button" color="primary" sx={{ fontWeight: 'bold' }}>
               Get Started &gt;
             </Typography>
           </Link>
+          )}
+
         </Box>
 
         <Box
