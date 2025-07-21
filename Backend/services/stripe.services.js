@@ -5,11 +5,10 @@ const User = require('../models/User');
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
 async function stripePayment(amount) {
-    console.log("amount", amount);
-
+  
     try {
         const paymentIntent = await stripe.paymentIntents.create({
-            amount, // amount in cents
+            amount, 
             currency: 'usd',
             payment_method_types: ['card']
         });
@@ -17,12 +16,12 @@ async function stripePayment(amount) {
         return paymentIntent;
     } catch (error) {
         console.log(error.message);
-        throw error; // Let the controller handle the error
+        throw error; 
     }
 }
 
 async function updateCredits(id, credit) {
-    console.log("id, credit", id, credit);
+
     try {
         const creditsToAdd = parseInt(credit, 10);
         const updatedUser = await User.findByIdAndUpdate(

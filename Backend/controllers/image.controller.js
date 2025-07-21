@@ -1,4 +1,4 @@
-const { imageGeneration } = require('../services/stabilityServices');
+const { imageGeneration, getImage } = require('../services/stabilityServices');
 const User = require('../models/User');
 const GeneratedImage = require('../models/GeneratedImage')
 
@@ -42,4 +42,17 @@ async function createImage(req, res) {
         res.status(500).json({message : 'Image generation failed'});
     }
 }
-module.exports = {createImage};
+
+async function getIMage(req, res) {
+    console.log("get image controller hit");
+    try {
+        const { id } = req.params;
+        console.log("getimage in controller hit");
+        console.log("backend id", id)
+        const blogs = await getImage(id);
+        res.status(200).json({ status: 'success', blogs });
+    } catch (error) {
+        res.status(500).json({ status: 'error', message: 'Failed to fetch blogs', error: error.message });
+    }
+}
+module.exports = {createImage, getIMage};

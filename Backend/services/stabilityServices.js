@@ -1,4 +1,5 @@
 const axios = require('axios');
+const  GeneratedImage = require('../models/GeneratedImage')
 
 async function imageGeneration(prompt) {
     const body = {
@@ -29,5 +30,20 @@ async function imageGeneration(prompt) {
     return response.data.artifacts[0].base64;
 }
 
-module.exports = { imageGeneration };
+async function getImage(userId) {
+    try {
+    const images = await GeneratedImage.find({ user: userId })
+    .sort({ createdAt: -1 })
+    .limit(10);
+
+    console.log("Fetched blogs:", images);
+    return images;
+    } catch(error) {
+        console.error('Error fetching blogs:', error);
+        throw error;
+    }
+
+}
+
+module.exports = { imageGeneration, getImage };
 

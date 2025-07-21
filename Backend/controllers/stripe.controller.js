@@ -5,8 +5,6 @@ async function createPayment(req, res) {
 
     const {amount} = req.body;
 
-    console.log("amount", amount)
-
     if(!amount) {
         return res.status(400).json({ error: 'Amount is required' });
     }
@@ -23,7 +21,6 @@ async function createPayment(req, res) {
 async function updateCredit(req, res) {
     const {userId, credits} =  req.body;
 
-    console.log("id, crdeits", userId, credits)
 
     if(!userId || !credits) {
         return res.status(400).json({ error: 'is required' });

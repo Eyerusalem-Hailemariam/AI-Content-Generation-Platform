@@ -28,7 +28,7 @@ async function signup(user) {
     });
 
     await newUser.save();
-    console.log("newUser", newUser);
+    // console.log("newUser", newUser);
     return newUser
 }
 catch(error) {

@@ -1,4 +1,4 @@
-const {generateBlogPost} = require('../services/gemini.services');
+const {generateBlogPost, getBlog} = require('../services/gemini.services');
 const User = require('../models/User'); 
 const BlogPost = require('../models/BlogPost');
 
@@ -78,4 +78,17 @@ async function generateBlog(req, res) {
     }
 }
 
-module.exports = {generateBlog};
+async function getBLog(req, res) {
+    console.log("getBLog controller hit");
+    try {
+        const { id } = req.params;
+        console.log("getBLog in controller hit");
+        console.log("backend id", id)
+        const blogs = await getBlog(id);
+        res.status(200).json({ status: 'success', blogs });
+    } catch (error) {
+        res.status(500).json({ status: 'error', message: 'Failed to fetch blogs', error: error.message });
+    }
+}
+
+module.exports = { generateBlog, getBLog };

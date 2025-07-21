@@ -34,7 +34,7 @@ async function login(userData) {
             status: "success",
             data: user
         };
-        console.log(returnData)
+        // console.log(returnData)
         return returnData
     } catch (error) {
 
