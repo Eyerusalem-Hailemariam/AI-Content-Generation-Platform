@@ -52,7 +52,7 @@ function Login() {
       }
       setSuccess('Logged in successfully');
       setFormData({ email: '', password: '' });
-      setTimeout(() => navigate('/dashboard'), 1000);
+      setTimeout(() => navigate('/generated'), 1000);
     } else {
       setError(response.data.message || 'Login failed');
     }
@@ -62,12 +62,11 @@ function Login() {
   return (
     <Box
       sx={{
-        minHeight: '100vh',
         background: 'linear-gradient(135deg, #e3f0ff 0%, #f9f9f9 100%)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        py: 8,
+        py: 4,
       }}
     >
       <Card sx={{ maxWidth: 400, width: '100%', borderRadius: 4, boxShadow: 6, p: 2 }}>

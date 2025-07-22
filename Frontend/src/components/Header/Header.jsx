@@ -7,92 +7,110 @@ import { useNavigate } from 'react-router-dom';
 import Logo from './Logo/Logo';
 import { useAuth } from '../../Context/AuthProvider';
 import loginService from '../../services/loginServices';
-import { Link } from 'react-router-dom';
+import { Typography, Avatar } from '@mui/material';
+import getAuth from '../../Utility/auth';
 
 function Header() {
-    const navigate = useNavigate();
-    const { isLogged, setIsLogged, user } = useAuth();
-    
-    console.log("isLogged", isLogged);
+  const navigate = useNavigate();
+  const { isLogged, setIsLogged } = useAuth();
 
-    const handleSignup = () => {
-        navigate('/signup');
-    };
+  const user = getAuth();
+  const token = user.user_token;
+  const id = user.user_id;
+  const name = user.user_name;
 
-    const logOut = () => {
-        loginService.logOut();
-        setIsLogged(false);
+  console.log("username in header", name);
+
+  const handleSignup = () => {
+    navigate('/signup');
+  };
+
+  const logOut = () => {
+    loginService.logOut();
+    setIsLogged(false);
+    navigate('/signup');
+  };
+
+  const handleScroll = (id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
     }
+  };
 
-    const handleScroll = (id) => {
-        const el = document.getElementById(id);
-        if (el) {
-            el.scrollIntoView({ behavior: 'smooth' });
-        }
-    };
+  return (
+    <AppBar
+      position="static"
+      elevation={0}
+      sx={{
+        background: 'white',
+        color: 'black',
+        px: { xs: 2, md: 6 },
+        py: 1,
+        boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+        zIndex: (theme) => theme.zIndex.drawer + 1,
+      }}
+    >
+      <Toolbar
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+        }}
+      >
+        {/* Left side: Logo or Dashboard link */}
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          {!isLogged && <Logo />}
+        </Box>
 
-    return (
-        <AppBar
-            position="static"
-            elevation={0}
-            sx={{
-                background: 'white',
-                color: 'black',
-                px: { xs: 2, md: 6 },
-                py: 1,
-                boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
-            }}
-        >
-            <Toolbar
-                sx={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    flexWrap: 'wrap',
-                }}
+        {/* Center Navigation Links (only when not logged in) */}
+        {!isLogged && (
+          <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 3 }}>
+            <Button color="inherit" sx={{ fontSize: 17, fontWeight: 'bold', textTransform: 'none' }} onClick={() => navigate('/')}>Home</Button>
+            <Button color="inherit" sx={{ fontSize: 17, fontWeight: 'bold', textTransform: 'none' }} onClick={() => handleScroll('features')}>Features</Button>
+            <Button color="inherit" sx={{ fontSize: 17, fontWeight: 'bold', textTransform: 'none' }} onClick={() => handleScroll('companies')}>Partner</Button>
+            <Button color="inherit" sx={{ fontSize: 17, fontWeight: 'bold', textTransform: 'none' }} onClick={() => handleScroll('testimonial')}>Testimonial</Button>
+            <Button color="inherit" sx={{ fontSize: 17, fontWeight: 'bold', textTransform: 'none' }} onClick={() => handleScroll('price')}>Pricing</Button>
+          </Box>
+        )}
+
+{isLogged && (
+<h1>Welcome to your Dashboard</h1>
+) }
+        {/* Right side: Avatar + Name + Logout if logged in, Sign Up otherwise */}
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          {isLogged ? (
+            <>
+              <Avatar alt={name || "User"} src={user?.avatarUrl || ""} />
+              <Typography variant="subtitle1" fontWeight="bold">
+                {name || "User"}
+              </Typography>
+              <Button onClick={logOut}>
+                Log Out
+              </Button>
+            </>
+          ) : (
+            <Button
+              variant="contained"
+              onClick={handleSignup}
+              sx={{
+                borderRadius: '20px',
+                textTransform: 'none',
+                fontWeight: 'bold',
+                backgroundColor: '#1976d2',
+                '&:hover': {
+                  backgroundColor: '#115293',
+                },
+              }}
             >
-                {/* Logo */}
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                    <Logo />
-                </Box>
-
-                {/* Navigation Links */}
-                <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 3 }}>
-                    <Button color="inherit" sx={{ fontSize: 17, fontWeight: 'bold', textTransform: 'none' }} onClick={() => navigate('/')}>Home</Button>
-                    <Button color="inherit" sx={{ fontSize: 17, fontWeight: 'bold', textTransform: 'none' }} onClick={() => handleScroll('features')}>Features</Button>
-                    <Button color="inherit" sx={{ fontSize: 17, fontWeight: 'bold', textTransform: 'none' }} onClick={() => handleScroll('companies')}>Partner</Button>
-                    <Button color="inherit" sx={{ fontSize: 17, fontWeight: 'bold', textTransform: 'none' }} onClick={() => handleScroll('testimonial')}>Testimonial</Button>
-                    <Button color="inherit" sx={{ fontSize: 17, fontWeight: 'bold', textTransform: 'none' }} onClick={() => handleScroll('price')}>Pricing</Button>
-                </Box>
-
-                {/* Signup Button */}
-                {
-                    isLogged ? (
-                        <Button onClick={logOut}>
-                            Log Out
-                        </Button>
-                    ) : (
-                        <Button
-                        variant="contained"
-                        onClick={handleSignup}
-                        sx={{
-                            borderRadius: '20px',
-                            textTransform: 'none',
-                            fontWeight: 'bold',
-                            backgroundColor: '#1976d2',
-                            '&:hover': {
-                                backgroundColor: '#115293',
-                            },
-                        }}
-                    >
-                        Sign Up
-                    </Button>         
-                    )
-                }
-               
-            </Toolbar>
-        </AppBar>
-    );
+              Sign Up
+            </Button>
+          )}
+        </Box>
+      </Toolbar>
+    </AppBar>
+  );
 }
 
 export default Header;

@@ -5,12 +5,14 @@ import Footer from '../components/Landing/Footer';
 
 const SignupPage = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="flex flex-col min-h-screen">
       <Header/>
-      <SignupForm />
+      <div className="flex-grow">
+        <SignupForm />
+      </div>
       <Footer/>
     </div>
   );
 };
 
-export default SignupPage; 
+export default SignupPage;
