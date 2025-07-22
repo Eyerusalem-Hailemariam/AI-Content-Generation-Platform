@@ -17,6 +17,7 @@ async function login(req, res, next) {
         const payload = {
             user_id: user.data._id,
             user_email: user.data.email,
+            user_name: user.data.name
         }
        
         const token = jwt.sign(

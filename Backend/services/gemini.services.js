@@ -64,7 +64,7 @@ async function getBlog(userId) {
       .sort({ createdAt: -1 })
       .limit(10);
 
-    console.log("Fetched blogs:", blogs);
+    // console.log("Fetched blogs:", blogs);
     return blogs;
 
   } catch (error) {

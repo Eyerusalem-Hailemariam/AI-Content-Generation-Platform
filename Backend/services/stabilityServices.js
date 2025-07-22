@@ -36,7 +36,7 @@ async function getImage(userId) {
     .sort({ createdAt: -1 })
     .limit(10);
 
-    console.log("Fetched blogs:", images);
+    // console.log("Fetched blogs:", images);
     return images;
     } catch(error) {
         console.error('Error fetching blogs:', error);

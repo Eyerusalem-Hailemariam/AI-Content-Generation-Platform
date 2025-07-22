@@ -2,6 +2,7 @@ const signupService = require('../services/signup.services')
 const User = require('../models/User')
 const jwt = require('jsonwebtoken');
 
+
 async function signup(req, res, next){
 
     const {name, email, password} = req.body;
@@ -39,8 +40,30 @@ async function signup(req, res, next){
         }
     }
 }
+
+
+async function getUser(req, res, next) {
+
+    const {id} = req.params;
+
+    console.log("id", id)
+    const response = await signupService.getUser(id);
+    
+    if (!response) {
+        res.status(400).json({
+             error: "Failed to get the employee!"
+        })
+    }
+    else {  
+        console.log("response am in", response)
+     return response
+    }
+
+
+}
 module.exports = {
-    signup
+    signup,
+    getUser
 }
 
     

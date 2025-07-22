@@ -13,6 +13,19 @@ async function checkIfUserExists(email) {
     }
 }
 
+async function getUser(id) {
+    try {
+        console.log("hey")
+        const user = await User.findById(id).select('-passwordHash');
+
+        console.log("user", user)
+        return user;
+    } catch (error) {
+        console.error('Error checking if user exists:', error);
+        throw error;
+    }
+}
+
 async function signup(user) {
     try {
         name = user.name,
@@ -38,5 +51,6 @@ catch(error) {
 
 module.exports = {
     checkIfUserExists,
-    signup
+    signup,
+    getUser
 };
