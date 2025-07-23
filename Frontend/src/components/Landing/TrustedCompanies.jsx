@@ -28,7 +28,7 @@ const TrustedCompanies = () => (
         maxWidth: '100%',
         overflow: 'hidden',
         position: 'relative',
-        mx: 'auto',
+        mx: 'auto'
       }}
     >
       <Box

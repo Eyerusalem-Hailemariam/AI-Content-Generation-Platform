@@ -59,6 +59,7 @@ export default function Testimonial() {
           overflow: 'hidden',
           position: 'relative',
           mx: 'auto',
+
         }}
       >
         <Box
@@ -75,27 +76,27 @@ export default function Testimonial() {
           {testimonialsLoop.map((t, idx) => (
             <Box key={idx} sx={{ position: 'relative', minWidth: CARD_WIDTH, maxWidth: CARD_WIDTH, flex: '0 0 auto' }}>
               {/* Avatar Overlapping */}
-              <Avatar
-  src={t.avatar}
-  alt={t.name}
-  sx={{
-    width: 64,
-    height: 64,
-    position: 'absolute',
-    left: '50%',
-    top: 0,
-    transform: 'translate(-50%, -50%)', 
-    boxShadow: 3,
-    border: '4px solid #fff',
-    zIndex: 2,
-    background: '#fff',
-  }}
-/>
-              <Paper
+                      <Avatar
+                src={t.avatar}
+                alt={t.name}
+                sx={{
+                width: 64,
+                height: 64,
+                position: 'absolute',
+                left: '50%',
+                top: 35,
+                transform: 'translate(-50%, -50%)', 
+                boxShadow: 3,
+                border: '4px solid #fff',
+                zIndex: 2,
+                background: '#fff',
+                }}
+                />
+                      <Paper
                 elevation={3}
                 sx={{
-                  mt: 4,
-                  pt: 12,
+                  mt: 6,
+                  pt: 10,
                   pb: 3,
                   px: 3,
                   borderRadius: 4,

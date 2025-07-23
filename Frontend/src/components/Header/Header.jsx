@@ -40,7 +40,6 @@ function Header() {
 
   return (
     <AppBar
-      position="static"
       elevation={0}
       sx={{
         background: 'white',
@@ -59,12 +58,12 @@ function Header() {
           flexWrap: 'wrap',
         }}
       >
-        {/* Left side: Logo or Dashboard link */}
+
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           {!isLogged && <Logo />}
         </Box>
 
-        {/* Center Navigation Links (only when not logged in) */}
+        
         {!isLogged && (
           <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 3 }}>
             <Button color="inherit" sx={{ fontSize: 17, fontWeight: 'bold', textTransform: 'none' }} onClick={() => navigate('/')}>Home</Button>
@@ -75,39 +74,44 @@ function Header() {
           </Box>
         )}
 
-{isLogged && (
-<h1>Welcome to your Dashboard</h1>
-) }
-        {/* Right side: Avatar + Name + Logout if logged in, Sign Up otherwise */}
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-          {isLogged ? (
-            <>
-              <Avatar alt={name || "User"} src={user?.avatarUrl || ""} />
-              <Typography variant="subtitle1" fontWeight="bold">
-                {name || "User"}
-              </Typography>
-              <Button onClick={logOut}>
-                Log Out
-              </Button>
-            </>
-          ) : (
-            <Button
-              variant="contained"
-              onClick={handleSignup}
-              sx={{
-                borderRadius: '20px',
-                textTransform: 'none',
-                fontWeight: 'bold',
-                backgroundColor: '#1976d2',
-                '&:hover': {
-                  backgroundColor: '#115293',
-                },
-              }}
-            >
-              Sign Up
-            </Button>
-          )}
-        </Box>
+
+<Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+  {isLogged ? (
+    <>
+      <Avatar alt={name || "User"} src={user?.avatarUrl || ""} />
+      <Typography variant="subtitle1" fontWeight="bold" color='black'>
+        {name || "User"}
+      </Typography>
+      <Button
+        onClick={logOut}
+        sx={{
+          color: 'black', // make text black
+          fontWeight: 'bold', // make text bold
+          textTransform: 'none',
+        }}
+      >
+        Log Out
+      </Button>
+    </>
+  ) : (
+    <Button
+      variant="contained"
+      onClick={handleSignup}
+      sx={{
+        borderRadius: '20px',
+        textTransform: 'none',
+        fontWeight: 'bold',
+        backgroundColor: '#1976d2',
+        '&:hover': {
+          backgroundColor: '#115293',
+        },
+      }}
+    >
+      Sign Up
+    </Button>
+  )}
+</Box>
+
       </Toolbar>
     </AppBar>
   );

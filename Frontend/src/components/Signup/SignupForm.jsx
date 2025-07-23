@@ -14,6 +14,7 @@ import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
 import { useNavigate } from 'react-router-dom';
+import Logo from '../Header/Logo/Logo';
 
 const SignupForm = () => {
   const [formData, setFormData] = useState({
@@ -56,109 +57,124 @@ const SignupForm = () => {
       setError(response.data.message || 'Signup failed');
       setSuccess('');
     }
-    
+    setLoading(false);
   };
 
   return (
     <Box
       sx={{
-        background: 'linear-gradient(135deg, #e3f0ff 0%, #f9f9f9 100%)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        background: 'linear-gradient(135deg, rgb(245, 247, 247) 0%, rgb(247, 247, 247) 100%)',
+        minHeight: '100vh',
+        width: '100%',
+        position: 'relative',
         py: 4,
       }}
     >
-      <Card sx={{ maxWidth: 400, width: '100%', borderRadius: 4, boxShadow: 6, p: 2 }}>
-        <CardContent>
-          <Box display="flex" flexDirection="column" alignItems="center" mb={2}>
-            <PersonAddAlt1Icon sx={{ fontSize: 48, color: 'primary.main', mb: 1 }} />
-            <Typography variant="h5" fontWeight="bold" gutterBottom>
-              Create your account
-            </Typography>
-            <Typography variant="body2" color="text.secondary" align="center">
-              Join our AI Content Generation Platform
-            </Typography>
-          </Box>
-          <form onSubmit={handleSubmit}>
-            <TextField
-              label="Full Name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              fullWidth
-              required
-              margin="normal"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <PersonAddAlt1Icon color="primary" />
-                  </InputAdornment>
-                ),
-              }}
-            />
-            <TextField
-              label="Email Address"
-              name="email"
-              type="email"
-              value={formData.email}
-              onChange={handleChange}
-              fullWidth
-              required
-              margin="normal"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <EmailIcon color="primary" />
-                  </InputAdornment>
-                ),
-              }}
-            />
-            <TextField
-              label="Password"
-              name="password"
-              type="password"
-              value={formData.password}
-              onChange={handleChange}
-              fullWidth
-              required
-              margin="normal"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <LockIcon color="primary" />
-                  </InputAdornment>
-                ),
-              }}
-            />
-            {error && (
-              <Alert severity="error" sx={{ mt: 2, mb: 1 }}>{error}</Alert>
-            )}
-            {success && (
-              <Alert severity="success" sx={{ mt: 2, mb: 1 }}>{success}</Alert>
-            )}
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              fullWidth
-              size="large"
-              sx={{ mt: 2, fontWeight: 'bold', borderRadius: 2, boxShadow: 2 }}
-              disabled={loading}
-            >
-              {loading ? 'Creating account...' : 'Create Account'}
-            </Button>
-            <Box mt={3} textAlign="center">
-              <Typography variant="body2" color="text.secondary">
-                Already have an account?{' '}
-                <a href="/login" style={{ color: '#1976d2', fontWeight: 500, textDecoration: 'none' }}>
-                  Sign in
-                </a>
+      {/* Logo at top left */}
+      <Box sx={{ position: 'absolute', top: 16, left: 16 }}>
+        <Logo />
+      </Box>
+
+      {/* Centered signup form */}
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minHeight: '100vh',
+        }}
+      >
+        <Card sx={{ maxWidth: 400, width: '100%', borderRadius: 4, boxShadow: 6, p: 2 }}>
+          <CardContent>
+            <Box display="flex" flexDirection="column" alignItems="center" mb={2}>
+              <PersonAddAlt1Icon sx={{ fontSize: 48, color: 'primary.main', mb: 1 }} />
+              <Typography variant="h5" fontWeight="bold" gutterBottom>
+                Create your account
+              </Typography>
+              <Typography variant="body2" color="text.secondary" align="center">
+                Join our AI Content Generation Platform
               </Typography>
             </Box>
-          </form>
-        </CardContent>
-      </Card>
+            <form onSubmit={handleSubmit}>
+              <TextField
+                label="Full Name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                fullWidth
+                required
+                margin="normal"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <PersonAddAlt1Icon color="primary" />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              <TextField
+                label="Email Address"
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleChange}
+                fullWidth
+                required
+                margin="normal"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <EmailIcon color="primary" />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              <TextField
+                label="Password"
+                name="password"
+                type="password"
+                value={formData.password}
+                onChange={handleChange}
+                fullWidth
+                required
+                margin="normal"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <LockIcon color="primary" />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              {error && (
+                <Alert severity="error" sx={{ mt: 2, mb: 1 }}>{error}</Alert>
+              )}
+              {success && (
+                <Alert severity="success" sx={{ mt: 2, mb: 1 }}>{success}</Alert>
+              )}
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                fullWidth
+                size="large"
+                sx={{ mt: 2, fontWeight: 'bold', borderRadius: 2, boxShadow: 2 }}
+                disabled={loading}
+              >
+                {loading ? 'Creating account...' : 'Create Account'}
+              </Button>
+              <Box mt={3} textAlign="center">
+                <Typography variant="body2" color="text.secondary">
+                  Already have an account?{' '}
+                  <a href="/login" style={{ color: '#1976d2', fontWeight: 500, textDecoration: 'none' }}>
+                    Sign in
+                  </a>
+                </Typography>
+              </Box>
+            </form>
+          </CardContent>
+        </Card>
+      </Box>
     </Box>
   );
 };

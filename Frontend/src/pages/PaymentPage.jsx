@@ -7,7 +7,6 @@ function PaymentPage() {
   return (
     <div>
      <Payment/>
-     <Footer/>
     </div>
   )
 }

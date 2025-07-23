@@ -14,7 +14,7 @@ async function getUser(id, token) {
             }
         );
         console.log("response data in getUser:", response.data);
-        return response.data;
+        return response.data.credits;
     } catch (error) {
         console.error('Error in getUser:', error);
         throw error;
