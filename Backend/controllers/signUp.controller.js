@@ -56,7 +56,7 @@ async function getUser(req, res, next) {
     }
     else {  
         console.log("response am in", response)
-     return response
+        return res.status(200).json(response);
     }
 
 

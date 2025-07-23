@@ -18,7 +18,7 @@ async function generateBlogPost(prompt, retries = 3, delay = 2000) {
             {
               parts: [
                 {
-                  text: `You are a helpful blog post generator. Generate a blog post based on this prompt: ${prompt}`
+                  text: `Write a simple, informative blog post on the topic: ${prompt}`
                 }
               ]
             }
