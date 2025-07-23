@@ -14,6 +14,7 @@ const Footer = () => {
             mb: 2,
           }}
         >
+          
           {/* Get In Touch */}
           <Box sx={{ minWidth: 250 }}>
             <Typography variant="h6" gutterBottom>
