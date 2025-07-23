@@ -51,7 +51,7 @@ export default function Sidebar() {
   >
   
       <List sx={{ mb: 2 }}>
-        <ListItem sx={{ ...listItemStyle, justifyContent: open ? 'space-between' : 'center' }}>
+        <ListItem sx={{ ...listItemStyle, justifyContent: open ? 'space-between' : 'center', width:'100%' }}>
           {open && (
             <ListItemText
               primary="Dashboard"
@@ -63,11 +63,21 @@ export default function Sidebar() {
           </IconButton>
         </ListItem>
 
-        {open && navigationItems.map((item, index) => (
-          <ListItem button component={Link} to={item.path} sx={listItemStyle} key={index}>
-            <ListItemIcon>{item.icon}</ListItemIcon>
+        {navigationItems.map((item, index) => (
+          <ListItem button component={Link} to={item.path} sx={{...listItemStyle,
+            justifyContent: open ? 'flex-start' : 'center',
+            px: open ? 2 : 0, }} key={index}>
+            <ListItemIcon  sx={{
+          minWidth: 0, ml: 3,
+          mr: open ? 2 : 'auto',
+          justifyContent: 'center',
+        }}>{item.icon}</ListItemIcon>
+
+        {open && (
             <ListItemText primary={item.text} primaryTypographyProps={{ fontWeight: 'bold' }} />
-          </ListItem>
+        )}
+            </ListItem>
+        
         ))}
       </List>
 
