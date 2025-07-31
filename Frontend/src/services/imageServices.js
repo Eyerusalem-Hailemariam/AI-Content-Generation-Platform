@@ -1,5 +1,5 @@
 import axios from'axios'
-const API_BASE_URL = 'http://localhost:5000/api';
+
 
 async function imageGenerator(prompt, token, user_id) {
 
@@ -9,7 +9,7 @@ async function imageGenerator(prompt, token, user_id) {
 
     try {
         const response = await axios.post(
-            "http://localhost:5000/api/generate-image",
+            `${import.meta.env.VITE_BASE_URL}api/generate-image`,
             { prompt, user_id },
             {
                 headers: {
@@ -34,7 +34,7 @@ async function getImages(id, token) {
     try { 
         console.log("response image", id)
         const response = await axios.get(
-            `${API_BASE_URL}/get-image/${id}`,
+            `${import.meta.env.VITE_BASE_URL}/get-image/${id}`,
             {
                 headers : {
                     'Content-Type' : 'application/json',

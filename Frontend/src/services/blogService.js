@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API_BASE_URL = 'http://localhost:5000/api';
+
 
 
 async function generateBlog(prompt, token, user_id) {
@@ -10,7 +10,7 @@ async function generateBlog(prompt, token, user_id) {
     try {
       
         const response = await axios.post(
-            `${API_BASE_URL}/generate-blog`,
+            `${import.meta.env.VITE_BASE_URL}/generate-blog`,
             { prompt, user_id },
             {
                 headers: {
@@ -35,7 +35,7 @@ async function getBlog(id, token) {
 
     try {
         const response = await axios.get(
-            `${API_BASE_URL}/get-blog/${id}`,
+            `${import.meta.env.VITE_BASE_URL}/get-blog/${id}`,
             {
                 headers : {
                     'Content-Type' : 'application/json',
