@@ -7,16 +7,7 @@ const PORT = process.env.PORT
 const router = require('./routes');
 const app = express();
 
-app.use(cors({
-    origin: function (origin, callback) {
-      if (!origin || ALLOWED_ORIGINS.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
-    credentials: true,
-  }));
+app.use(cors({ origin: true }));
   
 app.use(express.json());
 
