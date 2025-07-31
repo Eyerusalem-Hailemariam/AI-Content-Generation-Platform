@@ -146,13 +146,13 @@ function Login() {
                 <Alert severity="success" sx={{ mt: 2, mb: 1 }}>{success}</Alert>
               )}
              
-<Box textAlign="right" mt={1}>
-  <Typography variant="body2">
-    <a href="/forgot-password" style={{ color: '#1976d2', textDecoration: 'none', fontWeight: 500 }}>
-      Forgot Password?
-    </a>
-  </Typography>
-</Box>
+              <Box textAlign="right" mt={1}>
+                <Typography variant="body2">
+                  <a href="/forgot-password" style={{ color: '#1976d2', textDecoration: 'none', fontWeight: 500 }}>
+                    Forgot Password?
+                  </a>
+                </Typography>
+              </Box>
 
               <Button
                 type="submit"
