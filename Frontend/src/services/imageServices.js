@@ -9,7 +9,7 @@ async function imageGenerator(prompt, token, user_id) {
 
     try {
         const response = await axios.post(
-            `${import.meta.env.VITE_BASE_URL}api/generate-image`,
+            `${import.meta.env.VITE_BASE_PATH}/api/generate-image`,
             { prompt, user_id },
             {
                 headers: {
@@ -34,7 +34,7 @@ async function getImages(id, token) {
     try { 
         console.log("response image", id)
         const response = await axios.get(
-            `${import.meta.env.VITE_BASE_URL}/get-image/${id}`,
+            `${import.meta.env.VITE_BASE_PATH}/api/get-image/${id}`,
             {
                 headers : {
                     'Content-Type' : 'application/json',
