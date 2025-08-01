@@ -10,7 +10,7 @@ async function generateBlog(prompt, token, user_id) {
     try {
       
         const response = await axios.post(
-            `${import.meta.env.VITE_BASE_PATH}api/generate-blog`,
+            `${import.meta.env.VITE_BASE_PATH}/api/generate-blog`,
             { prompt, user_id },
             {
                 headers: {

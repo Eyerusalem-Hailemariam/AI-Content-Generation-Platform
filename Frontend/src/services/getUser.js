@@ -5,7 +5,7 @@ async function getUser(id, token) {
     try {
         console.log("Calling backend with id:", id, "and token:", token);
         const response = await axios.get(
-            `${import.meta.env.VITE_BASE_PATH}api/get-user/${id}`,
+            `${import.meta.env.VITE_BASE_PATH}/api/get-user/${id}`,
             {
                 headers: {
                     'Content-Type': 'application/json',

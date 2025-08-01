@@ -6,7 +6,7 @@ async function login(userData) {
 
         console.log(userData);
 
-        const response = await axios.post(`${import.meta.env.VITE_BASE_PATH}api/user/login`, {
+        const response = await axios.post(`${import.meta.env.VITE_BASE_PATH}/api/user/login`, {
             email: userData.email,
             password : userData.password
         })

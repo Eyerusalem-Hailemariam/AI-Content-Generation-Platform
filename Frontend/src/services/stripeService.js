@@ -14,7 +14,7 @@ async function updateCredits(id, amount) {
 
     console.log("id, credit", id, amount);
 
-    const data = await axios.post(`${import.meta.env.VITE_BASE_PATH}api/credits/update`, {
+    const data = await axios.post(`${import.meta.env.VITE_BASE_PATH}/api/credits/update`, {
         userId: id, 
         credits: Number(amount) * 100 
     });

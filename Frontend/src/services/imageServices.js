@@ -9,7 +9,7 @@ async function imageGenerator(prompt, token, user_id) {
 
     try {
         const response = await axios.post(
-            `${import.meta.env.VITE_BASE_PATH}api/generate-image`,
+            `${import.meta.env.VITE_BASE_PATH}/api/generate-image`,
             { prompt, user_id },
             {
                 headers: {
