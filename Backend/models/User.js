@@ -15,6 +15,12 @@ const userSchema = new mongoose.Schema({
         required : true,
     },
 
+    resetOTP : {
+        type: String
+    },
+    resetOTPExpires : {
+        type: Date
+    },
     credits: {
         type: Number,
         default: 10,

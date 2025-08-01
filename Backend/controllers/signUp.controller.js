@@ -1,6 +1,5 @@
 const signupService = require('../services/signup.services')
-const User = require('../models/User')
-const jwt = require('jsonwebtoken');
+
 
 
 async function signup(req, res, next){
@@ -61,9 +60,37 @@ async function getUser(req, res, next) {
 
 
 }
+
+async function sendOtp(req, res, next) {
+    const {email} = req.body;
+
+    const otp = await signupService.sendResetEmail(email);
+
+    if(!otp) {
+        res.status(400).json({
+            error: "Failed to send otp!"
+       })
+    }
+    else {
+        console.log("response am in", otp);
+        return res.status(200).json(otp);
+    }
+
+}
+
+async function verifyOtpAndChangePassword(req, res, next){
+    const {email, otp, newPassword} = req.body;
+    
+    const response = await signupService.verifyOtpAndChangePassword({email, otp, newPassword});
+
+    return res.status(200).json(response);
+    
+}
 module.exports = {
     signup,
-    getUser
+    getUser,
+    sendOtp,
+    verifyOtpAndChangePassword
 }
 
     
