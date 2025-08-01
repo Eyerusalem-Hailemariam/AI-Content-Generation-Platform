@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import imageService from '../../services/imageServices';
-import getAuth from '../../Utility/auth';
 import {
   Card,
   CardContent,
@@ -13,34 +11,40 @@ import {
 } from '@mui/material';
 import ImageIcon from '@mui/icons-material/Image';
 
+import imageService from '../../services/imageServices';
+import getAuth from '../../Utility/auth';
+
 function ImageGenerator() {
   const [prompt, setPrompt] = useState('');
   const [image, setImage] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const user = getAuth();
-  const token = user.user_token;
-  const id = user.user_id;
+  const { user_token: token, user_id: id } = getAuth();
 
-  const handleGenerator = async () => {
+  const handleGenerate = async () => {
     if (!prompt.trim()) return;
+
     setLoading(true);
     setError('');
     setImage('');
+
     try {
-      const response = await imageService.imageGenerator(prompt, token, id);
-      setImage(response.data.image);
-    } catch (error) {
-      console.log(error);
+      const { data } = await imageService.imageGenerator(prompt, token, id);
+      setImage(data.image);
+    } catch (err) {
+      console.error(err);
       setError('Failed to generate image');
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
     <Card sx={{ maxWidth: 600, width: '100%', borderRadius: 4, boxShadow: 6, p: 2 }}>
       <CardContent>
+
+        {/* Header Section */}
         <Box display="flex" flexDirection="column" alignItems="center" mb={2}>
           <ImageIcon sx={{ fontSize: 48, color: 'primary.main', mb: 1 }} />
           <Typography variant="h5" fontWeight="bold" gutterBottom>
@@ -51,6 +55,7 @@ function ImageGenerator() {
           </Typography>
         </Box>
 
+        {/* Input */}
         <TextField
           label="Enter your image prompt here..."
           value={prompt}
@@ -64,21 +69,29 @@ function ImageGenerator() {
           sx={{ mb: 2 }}
         />
 
+        {/* Error Message */}
         {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
 
+        {/* Generate Button */}
         <Button
-          onClick={handleGenerator}
+          onClick={handleGenerate}
           disabled={loading || !prompt.trim()}
           variant="contained"
           color="primary"
           fullWidth
           size="large"
-          sx={{ fontWeight: 'bold', borderRadius: 2, boxShadow: 2, mb: 2 }}
+          sx={{
+            fontWeight: 'bold',
+            borderRadius: 2,
+            boxShadow: 2,
+            mb: 2,
+          }}
           startIcon={loading ? <CircularProgress size={22} color="inherit" /> : <ImageIcon />}
         >
           {loading ? 'Generating...' : 'Generate Image'}
         </Button>
 
+        {/* Output Image */}
         {image && (
           <Box mt={3} display="flex" flexDirection="column" alignItems="center">
             <Typography variant="h6" fontWeight="bold" mb={1} color="primary.main">

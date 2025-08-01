@@ -9,42 +9,50 @@ import {
   CircularProgress,
 } from '@mui/material';
 import userService from '../../../services/getUser';
+import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Logo from '../../Header/Logo/Logo';
 
-function ForgotPassword() {
-  const [email, setEmail] = useState('');
+
+function VerifyOtp() {
+  const [otp, setOTP] = useState('');
+  const [newPassword, setNewPassword] = useState('');
   const [status, setStatus] = useState(null);
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate('')
 
-  const navigate = useNavigate();
+  const { email } = useParams();
 
-  const handleReset = async () => {
-    if (!email) {
+
+  const handleVerifyOtp = async () => {
+    if (!otp || !newPassword) {
       setStatus('error');
-      setMessage('Please enter your email address');
+      setMessage('Please fill in both OTP and new password.');
       return;
     }
-
+  
     setLoading(true);
     setStatus(null);
     setMessage('');
-
+  
     try {
-      await userService.sendResetEmail(email);
-
+      const res = await userService.verifyOtpAndChangePassword({ email, otp, newPassword });
+  
       setStatus('success');
-      setMessage('Reset token has been sent to your email.');
-
-      navigate(`/verify-otp/${encodeURIComponent(email)}`);
+      setMessage(res.message || 'Password reset successful. You can now log in.');
+      navigate('/login');
     } catch (err) {
+      console.error('Error from API:', err);
       setStatus('error');
-      setMessage('Something went wrong. Please try again.');
+      setMessage(
+        err.response?.data?.message || 'Invalid OTP or server error.'
+      );
     } finally {
       setLoading(false);
     }
   };
+  
 
   return (
     <Container maxWidth="sm">
@@ -63,10 +71,10 @@ function ForgotPassword() {
       </Box>
 
         <Typography variant="h5" fontWeight="bold" gutterBottom>
-          Forgot Password
+          Reset Your Password
         </Typography>
         <Typography variant="body1" mb={3}>
-          Enter your email to receive a password reset token.
+          Enter the 6-digit OTP and your new password.
         </Typography>
 
         {status && (
@@ -76,25 +84,34 @@ function ForgotPassword() {
         )}
 
         <TextField
-          label="Email Address"
-          type="email"
+          label="6-digit OTP"
+          value={otp}
+          onChange={(e) => setOTP(e.target.value)}
           fullWidth
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          sx={{ mb: 3 }}
+          inputProps={{ maxLength: 6 }}
+        />
+
+        <TextField
+          label="New Password"
+          type="password"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+          fullWidth
           sx={{ mb: 3 }}
         />
 
         <Button
           variant="contained"
           fullWidth
-          onClick={handleReset}
+          onClick={handleVerifyOtp}
           disabled={loading}
           sx={{ height: 45 }}
         >
           {loading ? (
             <CircularProgress size={24} color="inherit" />
           ) : (
-            'Send Reset OTP'
+            'Verify & Reset Password'
           )}
         </Button>
       </Box>
@@ -102,4 +119,4 @@ function ForgotPassword() {
   );
 }
 
-export default ForgotPassword;
+export default VerifyOtp;

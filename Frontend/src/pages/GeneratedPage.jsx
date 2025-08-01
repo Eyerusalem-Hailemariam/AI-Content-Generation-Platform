@@ -1,6 +1,6 @@
 import React from 'react';
 import Sidebar from '../components/Sidebar/Sidebar';
-import ContentHistory from '../components/ContentHistory/ContentHistory';
+import ContentHistory from '../components/GeneratePost/GeneratePost';
 import { Box } from '@mui/material';
 
 const GeneratedPage = () => {

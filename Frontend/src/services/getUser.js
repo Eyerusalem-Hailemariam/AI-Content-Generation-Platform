@@ -20,8 +20,45 @@ async function getUser(id, token) {
         throw error;
     }
 }
+async function sendResetEmail(email){
+    console.log(email)
+    try {
+        const response = await axios.post(
+             `${import.meta.env.VITE_BASE_PATH}/api/send-otp`, 
+             {email},
+             {
+                headers: {
+                    'Content-Type': 'application/json',
+                    // Authorization: `Bearer ${token}`
+                }
+            })
+        return response.data
+    } catch(err){
+        console.error('Error in sendEmail:', err);
+        throw err;
+    }
+}
 
+async function verifyOtpAndChangePassword({ email, otp, newPassword }){
+    console.log("email", email);
+    try{
+        const response = await axios.post(
+            `${import.meta.env.VITE_BASE_PATH}/api/verify-otp`, 
+            { email, otp, newPassword },
+            {
+               headers: {
+                   'Content-Type': 'application/json',
+                   // Authorization: `Bearer ${token}`
+               }
+           })
+       return response.data 
+    }catch(err) {
+
+    }
+}
 const userService = {
-    getUser
+    getUser,
+    sendResetEmail,
+    verifyOtpAndChangePassword
  };
- export default userService; 
+export default userService; 

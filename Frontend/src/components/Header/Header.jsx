@@ -51,68 +51,121 @@ function Header() {
       }}
     >
       <Toolbar
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-        }}
-      >
+  sx={{
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    height: 64,
+    minHeight: 64,
+    px: 0,
+  }}
+>
+  {/* Logo Section */}
+  <Box sx={{ display: 'flex', alignItems: 'center', height: '100%' }}>
+    {!isLogged && <Logo />}
+  </Box>
 
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-          {!isLogged && <Logo />}
-        </Box>
-
-        
-        {!isLogged && (
-          <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 3 }}>
-            <Button color="inherit" sx={{ fontSize: 17, fontWeight: 'bold', textTransform: 'none' }} onClick={() => navigate('/')}>Home</Button>
-            <Button color="inherit" sx={{ fontSize: 17, fontWeight: 'bold', textTransform: 'none' }} onClick={() => handleScroll('features')}>Features</Button>
-            <Button color="inherit" sx={{ fontSize: 17, fontWeight: 'bold', textTransform: 'none' }} onClick={() => handleScroll('companies')}>Partner</Button>
-            <Button color="inherit" sx={{ fontSize: 17, fontWeight: 'bold', textTransform: 'none' }} onClick={() => handleScroll('testimonial')}>Testimonial</Button>
-            <Button color="inherit" sx={{ fontSize: 17, fontWeight: 'bold', textTransform: 'none' }} onClick={() => handleScroll('price')}>Pricing</Button>
-          </Box>
-        )}
-
-
-<Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-  {isLogged ? (
-    <>
-      <Avatar alt={name || "User"} src={user?.avatarUrl || ""} />
-      <Typography variant="subtitle1" fontWeight="bold" color='black'>
-        {name || "User"}
-      </Typography>
-      <Button
-        onClick={logOut}
-        sx={{
-          color: 'black', // make text black
-          fontWeight: 'bold', // make text bold
-          textTransform: 'none',
-        }}
-      >
-        Log Out
-      </Button>
-    </>
-  ) : (
-    <Button
-      variant="contained"
-      onClick={handleSignup}
+  {/* Nav Links */}
+  {!isLogged && (
+    <Box
       sx={{
-        borderRadius: '20px',
-        textTransform: 'none',
-        fontWeight: 'bold',
-        backgroundColor: '#1976d2',
-        '&:hover': {
-          backgroundColor: '#115293',
-        },
+        display: { xs: 'none', md: 'flex' },
+        alignItems: 'center',
+        gap: 3,
+        height: '100%',
       }}
     >
-      Sign Up
-    </Button>
+      {['Home', 'Features', 'Partner', 'Testimonial', 'Pricing'].map((item) => (
+        <Button
+          key={item}
+          color="inherit"
+          onClick={() =>
+            item === 'Home' ? navigate('/') : handleScroll(item.toLowerCase())
+          }
+          sx={{
+            fontSize: 17,
+            fontWeight: 'bold',
+            textTransform: 'none',
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
+          {item}
+        </Button>
+      ))}
+    </Box>
   )}
-</Box>
 
-      </Toolbar>
+  {/* Right Controls */}
+  <Box
+    sx={{
+      display: 'flex',
+      alignItems: 'center',
+      gap: 2,
+      height: '100%',
+    }}
+  >
+    {isLogged ? (
+      <>
+        <Avatar
+          alt={name || 'User'}
+          src={user?.avatarUrl || ''}
+          sx={{ width: 32, height: 32 }}
+        />
+        <Typography
+          variant="body2"
+          fontWeight="bold"
+          color="black"
+          sx={{
+            whiteSpace: 'nowrap',
+            display: 'flex',
+            alignItems: 'center',
+            height: '100%',
+          }}
+        >
+          {name || 'User'}
+        </Typography>
+        <Button
+          onClick={logOut}
+          variant="text"
+          sx={{
+            color: 'black',
+            fontWeight: 'bold',
+            textTransform: 'none',
+            height: 36,
+            display: 'flex',
+            alignItems: 'center',
+            px: 2,
+          }}
+        >
+          Log Out
+        </Button>
+      </>
+    ) : (
+      <Button
+        variant="contained"
+        onClick={handleSignup}
+        sx={{
+          height: 40,
+          minWidth: 100,
+          borderRadius: 20,
+          textTransform: 'none',
+          fontWeight: 'bold',
+          backgroundColor: '#1976d2',
+          '&:hover': {
+            backgroundColor: '#115293',
+          },
+          display: 'flex',
+          alignItems: 'center',
+        }}
+      >
+        Sign Up
+      </Button>
+    )}
+  </Box>
+</Toolbar>
+
     </AppBar>
   );
 }
