@@ -4,7 +4,7 @@ async function createPayment(amount) {
     console.log("amount", amount);
 
 
-    const { data } = await axios.post(`http://localhost:5000/api/payment/create-payment-intent`, {
+    const { data } = await axios.post(`${import.meta.env.VITE_BASE_PATH}/api/payment/create-payment-intent`, {
         amount: parseInt(amount) * 100
         });
     return data.clientSecret;
