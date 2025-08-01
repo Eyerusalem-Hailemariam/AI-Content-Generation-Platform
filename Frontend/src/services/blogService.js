@@ -35,7 +35,7 @@ async function getBlog(id, token) {
 
     try {
         const response = await axios.get(
-            `${import.meta.env.VITE_BASE_URL}/get-blog/${id}`,
+            `${import.meta.env.VITE_BASE_PATH}/api/get-blog/${id}`,
             {
                 headers : {
                     'Content-Type' : 'application/json',
