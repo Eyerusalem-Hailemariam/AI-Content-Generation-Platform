@@ -1,28 +1,30 @@
-AI Content Generation Platform
+# AI Content Generation Platform
 
-An AI-powered platform built with Node.js and Express for generating high-quality content such as blog posts, product descriptions, social media captions, and more.
+An AI-powered platform built with Node.js and Express for generating high-quality content such as blog posts, product descriptions, social media captions, and more.  
 The platform leverages advanced language models to provide fast, customizable, and SEO-friendly content creation for various use cases.
 
-Features
-AI-Powered Content Generation – Create articles, blogs, product descriptions, and captions.
+## Features
 
-Image Generation – Generate AI-created images using Stability AI’s API.
+- **AI-Powered Content Generation** – Create articles, blogs, product descriptions, and captions.
 
-Customizable Prompts – Tailor tone, style, and format to your needs.
+- **Image Generation** – Generate AI-created images using Stability AI’s API.
 
-Keyword Optimization – Generate SEO-friendly content with given keywords.
+- **Customizable Prompts** – Tailor tone, style, and format to your needs.
 
-User Authentication – Secure access for registered users.
+- **Keyword Optimization** – Generate SEO-friendly content with given keywords.
 
-REST API – Integrate content generation into other platforms or services.
+- **User Authentication** – Secure access for registered users.
 
-Tech Stack
-Backend: Node.js, Express
+- **REST API** – Integrate content generation into other platforms or services.
 
-AI Integration: OpenAI API (or other LLM APIs), Stability AI for image generation
+## Tech Stack
 
-Database: MongoDB 
+- **Backend:** Node.js, Express
 
-Authentication: JWT
+- **AI Integration:** Gemini API (Google’s generative language model), Stability AI for image generation
 
-Deployment: Vercel, Render
+- **Database:** MongoDB
+
+- **Authentication:** JWT
+
+- **Deployment:** Vercel, Render
