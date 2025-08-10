@@ -7,7 +7,7 @@ async function login(userData) {
 
         const {email, password} = userData;
 
-        const user = await User.findOne({email});
+        const user = await findUserByEmail(email, '+passwordHash');
 
         if (!user){
             returnData = {
@@ -43,6 +43,11 @@ async function login(userData) {
 
 }
 
+async function findUserByEmail(email, selectFields = '') {
+    return await User.findOne({email}).select(selectFields).lean();
+}
+
 module.exports = {
-    login
+    login,
+    findUserByEmail
 }

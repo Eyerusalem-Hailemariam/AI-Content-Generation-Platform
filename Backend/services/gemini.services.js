@@ -1,60 +1,43 @@
 const axios = require('axios');
 const Blog = require('../models/BlogPost');
 
-async function generateBlogPost(prompt, retries = 3, delay = 2000) {
+async function generateKeywords(prompt) {
+
   const apiKey = process.env.GEMINI_API_KEY;
-  const model = 'gemini-1.5-flash';
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
-  if (!apiKey) throw new Error('GEMINI_API_KEY environment variable is not set');
+  const { data } = await axios.post(url, {
+     contents: [{ parts: [{ text: `Suggest 5 SEO keywords for: "${prompt}"` }] }]
+  });
 
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+  const text = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
 
-  for (let attempt = 1; attempt <= retries; attempt++) {
-    try {
-      const response = await axios.post(
-        url,
-        {
-          contents: [
-            {
-              parts: [
-                {
-                  text: `Write a simple, informative blog post on the topic: ${prompt}`
-                }
-              ]
-            }
-          ]
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        }
-      );
+  const keywords = text
+    .split(/[\n,]+/)
+    .map(k => k.trim())
+    .filter(k => k.length > 0)
 
-      if (
-        response.data.candidates &&
-        response.data.candidates[0] &&
-        response.data.candidates[0].content
-      ) {
-        const generatedContent = response.data.candidates[0].content.parts[0].text;
-        return generatedContent;
-      } else {
-        throw new Error('Invalid response structure from Gemini API');
-      }
-
-    } catch (error) {
-      if (error.response && error.response.status === 503 && attempt < retries) {
-        const waitTime = delay * attempt; // exponential backoff
-        console.log(`Gemini API overloaded. Retry attempt ${attempt} after ${waitTime}ms...`);
-        await new Promise(res => setTimeout(res, waitTime));
-        continue;
-      } else {
-        console.error('Gemini error:', error.response ? error.response.data : error);
-        throw error;
-      }
-    }
-  }
+  return keywords;
 }
+
+async function generateBlogPost(prompt) {
+  const keywords = await generateKeywords(prompt);
+  const keywordStr = keywords.join(', ');
+
+  const articlePrompt = `Write an SEO-friendly article on "${prompt}" using these keywords naturally: ${keywordStr}`;
+
+  const apiKey = process.env.GEMINI_API_KEY
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+
+  const { data } = await axios.post(url, {
+    contents: [{ parts: [{ text: articlePrompt }] }]
+  });
+
+  return data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+
+}
+
+
 
 async function getBlog(userId) {
   try {
@@ -72,5 +55,7 @@ async function getBlog(userId) {
     throw error;
   }
 }
+
+
 
 module.exports = { generateBlogPost, getBlog };

@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 const blogPostSchema = new mongoose.mongoose.Schema({
     title : {
         type: String,
-        required : true,
+        required : [true, 'Title is required'],
+        minlength: 5,
+        maxlength : 100,
     },
 
     prompt : {
