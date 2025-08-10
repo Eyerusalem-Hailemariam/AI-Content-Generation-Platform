@@ -1,5 +1,4 @@
 import axios from 'axios';
-import generateService from './blogService';
 
 async function signup(userData) {
     console.log("userData", userData);
